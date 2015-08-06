@@ -16,3 +16,10 @@ FROM sys.dm_exec_query_stats qs
 CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
 ORDER BY [Average CPU used] DESC;
 
+-- TO KNOW THE CURRENT DEFRAGMENT STATUS 
+
+SELECT OBJECT_NAME(OBJECT_ID),OBJECT_NAME( index_id), index_id, index_type_desc,index_level,
+avg_fragmentation_in_percent,avg_page_space_used_in_percent,page_count
+FROM sys.dm_db_index_physical_stats
+(DB_ID(N'KOSERPM2015'), NULL, NULL, NULL , 'DETAILED')
+ORDER BY avg_fragmentation_in_percent DESC
