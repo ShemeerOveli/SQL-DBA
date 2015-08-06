@@ -1,0 +1,13 @@
+
+--Restore Same Database in Same Server
+
+
+
+RESTORE DATABASE DATABcopy FROM DISK = 'D:\Backups\FOLDER'
+WITH REPLACE, RECOVERY,
+MOVE 'DATABcopy' TO 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\DATABcopy.mdf',
+
+MOVE 'DATABcopy_log' TO 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\DATABcopy_log.ldf';
+
+RESTORE DATABASE DATAB WITH RECOVERY
+
