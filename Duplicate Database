@@ -1,0 +1,12 @@
+
+
+-- First backup file
+backup database Database1
+to disk='C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\Database1.bak';
+
+-- Then Restore New database from that backup file
+restore database Database2
+from disk='C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\Database1.bak'
+WITH move 'Database1' to 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Database2.mdf',
+move 'Database1_log' to 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Database2_log.ldf';
+GO
