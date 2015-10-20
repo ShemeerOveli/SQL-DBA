@@ -1,0 +1,21 @@
+SELECT db_name(st.dbid) DBName,
+object_schema_name(st.objectid, dbid) SchemaName,
+object_name(st.objectid, dbid) StoredProcedure,
+MAX(cp.usecounts) Execution_count,
+st.text [Plan_Text]
+INTO #TMP
+FROM sys.dm_exec_cached_plans cp
+CROSS APPLY sys.dm_exec_sql_text(cp.plan_handle) st
+WHERE db_name(st.dbid) IS NOT NULL
+AND cp.objtype = 'proc'
+GROUP BY cp.plan_handle,
+db_name(st.dbid),
+object_schema_name(objectid, st.dbid),
+object_name(objectid, st.dbid),
+st.text
+ORDER BY object_name(st.objectid, dbid)
+
+SELECT StoredProcedure
+FROM #TMP
+GROUP BY StoredProcedure
+HAVING COUNT(*) > 1
